@@ -1,0 +1,322 @@
+<!-- Header Section -->
+<header class="bg-primary text-white shadow-sm">
+  <div class="container py-3"> 
+    <!--container py-3: Centrerar innehållet och lägger till vertikal padding-->
+    <div class="d-flex justify-content-between align-items-center">
+      <!--d-flex justify-content-between: 
+      Flexbox-layout som placerar rubrik och knapp på varsin sida-->
+      <h1 class="h4 mb-0">
+        <i class="bi bi-list-task me-2"></i>Task Manager (CRUD)
+      </h1>
+      <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#addTask">
+        <i class="bi bi-plus-circle me-1"></i>Skapa nya projekt</button>
+    </div>
+  </div>
+</header>
+
+<!-- Main Content Section -->
+<main class="container my-4">
+  <!-- Filter Section -->
+  <section class="card mb-4 shadow-sm">
+    <div class="card-body">
+      <form class="row g-3 align-items-center">
+        
+        <!-- Användardropdown -->
+        <div class="col-md-4">
+          <div class="form-floating">  <!-- form-floating: Bootstrap-komponent som gör att etiketterna 
+            "flyter" ovanför inputfälten när de är tomma -->
+            <select class="form-select" id="userSelect" name="user" [(ngModel)]="selectedUserId"> <!-- [(ngModel)]: Two-way data binding i Angular som 
+              binder dropdown-värden till komponentens egenskaper -->
+              @for(user of users; track $index){
+                <!-- @for: Angulars loop-direktiv som skapar alternativ 
+                 för varje användare -->
+                <option [ngValue]="user.id">{{user.name}}</option>
+              }
+            </select>
+            <label for="userSelect">Användare Namn</label>
+          </div>
+        </div>
+        
+        <!-- Kategoridropdown -->
+        <div class="col-md-4">
+          <div class="form-floating">
+            <select class="form-select" id="categorySelect" name="category" [(ngModel)]="selectedCategoryId">
+              @for(category of categories; track $index){
+                <!-- @for: Angulars loop-direktiv som skapar alternativ 
+                 för varje kategori -->
+                <option [ngValue]="category.id">{{category.name}}</option>
+              }
+            </select>
+            <label for="categorySelect">Status/Kategori</label>
+          </div>
+        </div>
+        
+         <!-- Sökknapp -->
+        <div class="col-md-4">
+          <button type="submit" class="btn btn-primary w-100" (click)="getAllTracks()">
+            <!--Knappen anropar getAllTracks()-metoden när man klickar-->
+            <i class="bi bi-search me-2"></i>Sök uppgifter
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Tasks Section -->
+  <section class="row g-4">
+
+    <!-- In Progress Tasks -->
+    <div class="col-lg-6">
+      <div class="card shadow-sm h-100">
+        <div class="card-header bg-warning bg-opacity-10">
+          <h5 class="card-title mb-0">
+            <i class="bi bi-hourglass-split me-2"></i>Pågående uppgifter
+          </h5>
+        </div>
+        <div class="card-body">
+          @for (task of inprogressTask; track $index) {
+            <div class="card mb-3">
+              <div class="card-body d-flex justify-content-between align-items-center">
+                <span class="fw-medium">{{task.title}}</span>
+                <div class="d-flex gap-2">
+
+                  <!-- Visa-knapp -->
+                  <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" 
+                    data-bs-target="#staticBackdrop" (click)="selectTask(task)" title="View">
+
+                    <!-- Visa-ikon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                      <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
+                      <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
+                    </svg>
+                  </button>
+                  <!-- Redigera-ikon -->
+                  <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" 
+                    data-bs-target="#editFormModal" (click)="selectTask(task)" title="Edit">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                      <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                      <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+                    </svg>
+                  </button>
+                  <!-- Radera-knapp --> 
+                  <button class="btn btn-sm btn-outline-danger" (click)="deleteTask(task)" title="Delete">
+  
+                  <!-- Radera-ikon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                 <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
+                </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          }
+          @if (inprogressTask.length === 0) {
+            <div class="text-center text-muted py-3">
+              <i class="bi bi-inbox fs-4"></i>
+              <p class="mt-2 mb-0">Inga pågående uppgifter hittades</p>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!--
+    1. Visar alla uppgifter där completed är false
+    2. Varje uppgift har tre knappar: Visa, Redigera, Radera
+    3. selectTask(task) anropas för att välja aktuell uppgift innan modal öppnas
+    4. deleteTask(task) raderar uppgiften direkt
+    5. Visar ett meddelande om det inte finns några pågående uppgifter-->
+    
+
+
+    <!-- Completed Tasks -->
+    <div class="col-lg-6">
+      <div class="card shadow-sm h-100">
+        <div class="card-header bg-success bg-opacity-10">
+          <h5 class="card-title mb-0">
+            <i class="bi bi-check-circle me-2"></i>Avslutade uppgifter
+          </h5>
+        </div>
+        <div class="card-body">
+          @for (task of completedTasks; track $index) {
+            <div class="card mb-3">
+              <div class="card-body d-flex justify-content-between align-items-center">
+                <span class="fw-medium">{{task.title}}</span>
+                <div class="d-flex gap-2">
+                  <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" 
+                    data-bs-target="#staticBackdrop" (click)="selectTask(task)" title="View">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                      <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
+                      <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
+                    </svg>
+                  </button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" 
+                    data-bs-target="#editFormModal" (click)="selectTask(task)" title="Edit">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                      <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                      <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+                    </svg>
+                  </button>
+                  <button class="btn btn-sm btn-outline-danger" (click)="deleteTask(task)" title="Delete">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                      <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          }
+          @if (completedTasks.length === 0) {
+            <div class="text-center text-muted py-3">
+              <i class="bi bi-inbox fs-4"></i>
+              <p class="mt-2 mb-0">Inga slutförda uppgifter hittades</p>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+
+
+
+  </section>
+</main>
+
+<!-- Footer Section -->
+<footer class="bg-light border-top py-3 mt-4">
+  <div class="container text-center text-muted">
+    <small>© 24 May 2025; 
+      Task Manager CRUD Application. 
+      Syedur Rahman. 
+      Alla rättigheter förbehållna.</small>
+  </div>
+</footer>
+
+<!-- View Task Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" 
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-light">
+        <h5 class="modal-title" id="staticBackdropLabel">
+          <i class="bi bi-card-text me-2"></i>Uppgiftsdetaljer
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="cencel"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <fieldset disabled>
+            <div class="mb-3">
+              <label class="form-label">Uppgift Namn</label>
+              <input type="text" class="form-control" [value]="selectedTask?.title">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Beskrivning</label>
+              <input type="text" class="form-control" [value]="selectedTask?.description">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Uppgiftsstatus</label>
+              <input type="text" class="form-control" [value]="(selectedTask?.completed == false) ? 'Ongoing' : 'Completed'">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Deadline</label>
+              <input type="date" class="form-control" [value]="selectedTask?.dueDate">
+            </div>
+          </fieldset>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Stäng</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Update Task Modal -->
+<div class="modal fade" id="editFormModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" 
+  aria-labelledby="editFormModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-light">
+        <h5 class="modal-title" id="editFormModalLabel">
+          <i class="bi bi-pencil-square me-2"></i>Uppdatera uppgiftsdetaljer
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="updateTaskForm" (ngSubmit)="updateTask()">
+          <div class="mb-3">
+            <label class="form-label">Uppgift Namn</label>
+            <input type="text" class="form-control" formControlName="title">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Beskrivning</label>
+            <input type="text" class="form-control" formControlName="description">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Uppgiftsstatus</label>
+            <input type="text" class="form-control" formControlName="completed">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Deadline</label>
+            <input type="date" class="form-control" formControlName="dueDate">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Stäng</button>
+            <button type="submit" class="btn btn-primary">Uppdatera</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add Task Modal -->
+<div class="modal fade" id="addTask" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" 
+  aria-labelledby="addTaskLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-light">
+        <h5 class="modal-title" id="addTaskLabel">
+          <i class="bi bi-plus-circle me-2"></i>Nya projekt formulär
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Stäng"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="newTaskForm" (ngSubmit)="addNewTask()">
+          <div class="mb-3">
+            <label class="form-label">Uppgift Namn</label>
+            <input type="text" class="form-control" formControlName="title">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Beskrivning</label>
+            <input type="text" class="form-control" formControlName="description">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Deadline</label>
+            <input type="date" class="form-control" formControlName="dueDate">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Användare Namn</label>
+            <select class="form-select" formControlName="userId">
+              @for(user of users; track $index){
+                <option [ngValue]="user.id">{{user.name}}</option>
+              }
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Kategori</label>
+            <select class="form-select" formControlName="categoryId">
+              @for(category of categories; track $index){
+                <option [ngValue]="category.id">{{category.name}}</option>
+              }
+            </select>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Stäng</button>
+            <button type="submit" class="btn btn-primary">Skapa</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

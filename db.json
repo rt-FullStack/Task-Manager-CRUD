@@ -1,0 +1,256 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "Alice",
+      "email": "alice@example.com"
+    },
+    {
+      "id": "2",
+      "name": "Bob",
+      "email": "bob@example.com"
+    },
+    {
+      "id": "3",
+      "name": "Charlie",
+      "email": "charlie@example.com"
+    },
+    {
+      "id": "4",
+      "name": "Diana",
+      "email": "diana@example.com"
+    },
+    {
+      "id": "5",
+      "name": "Ethan",
+      "email": "ethan@example.com"
+    },
+    {
+      "id": "6",
+      "name": "Fiona",
+      "email": "fiona@example.com"
+    },
+    {
+      "id": "7",
+      "name": "Syedur",
+      "email": "syedur@example.com"
+    }
+  ],
+  "categories": [
+    {
+      "id": "1",
+      "name": "Jobb"
+    },
+    {
+      "id": "2",
+      "name": "Personal"
+    },
+    {
+      "id": "3",
+      "name": "Hälso Sjukvård"
+    },
+    {
+      "id": "4",
+      "name": "Studier"
+    },
+    {
+      "id": "5",
+      "name": "Hushåll"
+    },
+    {
+      "id": "6",
+      "name": "Fritid"
+    }
+  ],
+  "todos": [
+    {
+      "id": "4",
+      "title": "Läsa kurslitteratur för nästa vecka",
+      "description": "Kapitel 5-7 i läroboken",
+      "completed": false,
+      "dueDate": "2025-05-25",
+      "userId": 3,
+      "categoryId": 4
+    },
+    {
+      "id": "5",
+      "title": "Städa garaget",
+      "description": "Sortera och organisera verktyg",
+      "completed": "True",
+      "dueDate": "2025-07-01",
+      "userId": 4,
+      "categoryId": 5
+    },
+    {
+      "id": "6",
+      "title": "Planera sommarsemester+",
+      "description": "Boka flyg och hotell",
+      "completed": false,
+      "dueDate": "2025-04-15",
+      "userId": 5,
+      "categoryId": 6
+    },
+    {
+      "id": "7",
+      "title": "Förbereda presentation för möte",
+      "description": "Skapa PowerPoint och öva",
+      "completed": true,
+      "dueDate": "2025-03-10",
+      "userId": 6,
+      "categoryId": 1
+    },
+    {
+      "id": "10",
+      "title": "Köpa present till mammas födelsedag*",
+      "description": "Hon gillar blommor och böcker",
+      "completed": false,
+      "dueDate": "2025-05-30",
+      "userId": 4,
+      "categoryId": 2
+    },
+    {
+      "id": "11",
+      "title": "Hello ",
+      "description": "Hello new one",
+      "completed": "false",
+      "dueDate": "2025-05-24",
+      "userId": "2",
+      "categoryId": "2"
+    },
+    {
+      "id": "13",
+      "title": "Reas till Paris",
+      "description": "Jobba för företag",
+      "completed": "false",
+      "dueDate": "2025-05-17",
+      "userId": "2",
+      "categoryId": "2"
+    },
+    {
+      "id": "20",
+      "title": "Sädning",
+      "description": "Hemma",
+      "completed": "True",
+      "dueDate": "2025-06-06",
+      "userId": "1",
+      "categoryId": "6"
+    },
+    {
+      "id": "21",
+      "title": "Träna på gym",
+      "description": "Ben och rygg",
+      "completed": false,
+      "dueDate": "2025-06-20",
+      "userId": "7",
+      "categoryId": "10"
+    },
+    {
+      "id": "22",
+      "title": "Laga middag",
+      "description": "Vegetarisk lasagne",
+      "completed": false,
+      "dueDate": "2025-06-15",
+      "userId": "8",
+      "categoryId": "8"
+    },
+    {
+      "id": "23",
+      "title": "Betala räkningar",
+      "description": "El, vatten och internet",
+      "completed": true,
+      "dueDate": "2025-06-01",
+      "userId": "9",
+      "categoryId": "9"
+    },
+    {
+      "id": "24",
+      "title": "Språklektion online",
+      "description": "Tyska nivå B1",
+      "completed": false,
+      "dueDate": "2025-06-22",
+      "userId": "10",
+      "categoryId": "16"
+    },
+    {
+      "id": "25",
+      "title": "Måla om sovrummet",
+      "description": "Köpa färg och penslar",
+      "completed": false,
+      "dueDate": "2025-07-01",
+      "userId": "11",
+      "categoryId": "14"
+    },
+    {
+      "id": "26",
+      "title": "Volontärarbete",
+      "description": "Hjälpa till på soppkök",
+      "completed": false,
+      "dueDate": "2025-06-19",
+      "userId": "12",
+      "categoryId": "15"
+    },
+    {
+      "id": "27",
+      "title": "Gå på konsert",
+      "description": "Biljetter till Coldplay",
+      "completed": false,
+      "dueDate": "2025-08-10",
+      "userId": "13",
+      "categoryId": "11"
+    },
+    {
+      "id": "28",
+      "title": "Familjemiddag",
+      "description": "Hos farmor kl. 18",
+      "completed": true,
+      "dueDate": "2025-06-10",
+      "userId": "14",
+      "categoryId": "12"
+    },
+    {
+      "id": "29",
+      "title": "Beställa nya kläder",
+      "description": "Behöver nya byxor",
+      "completed": false,
+      "dueDate": "2025-06-17",
+      "userId": "15",
+      "categoryId": "13"
+    },
+    {
+      "id": "30",
+      "title": "Boka flyg till Italien",
+      "description": "Semester i augusti",
+      "completed": false,
+      "dueDate": "2025-06-21",
+      "userId": "16",
+      "categoryId": "7"
+    },
+    {
+      "id": "31",
+      "title": "Planning för resa",
+      "description": "Skära sommarland",
+      "completed": "false",
+      "dueDate": "2025-06-26",
+      "userId": "3",
+      "categoryId": "6"
+    },
+    {
+      "id": "32",
+      "title": "Planning för resa",
+      "description": "Sommarland",
+      "completed": "false",
+      "dueDate": "2025-06-24",
+      "userId": "7",
+      "categoryId": "6"
+    },
+    {
+      "id": 33,
+      "title": "Sommar Resa",
+      "description": "Planning nästa vecka",
+      "completed": "true",
+      "dueDate": "2025-06-25",
+      "userId": "7",
+      "categoryId": "6"
+    }
+  ]
+}
