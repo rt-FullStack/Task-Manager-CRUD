@@ -45,25 +45,6 @@ Starta JSON-server (backend):
 - ng serve
 - Applikationen öppnas automatiskt på http://localhost:4200
 
-# Projektstruktur
-task-manager-crud/
-├── src/
-│   ├── app/
-│   │   ├── component/
-│   │   │   └── dashboard/             # Huvudkomponent
-│   │   │       ├── dashboard.component.html
-│   │   │       ├── dashboard.component.ts
-│   │   │       └── dashboard.component.css
-│   │   ├── service/
-│   │   │   └── task.service.ts        # API-tjänst
-│   │   └── app.component.ts           # Rotkomponent
-│   ├── assets/
-│   └── index.html
-├── db.json                            # Mock-databas
-├── angular.json
-├── package.json
-└── README.md
-
 # API Endpoints
 JSON-servern tillhandahåller följande endpoints:
 - GET /users - Hämta alla användare
